@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { motion, useAnimation } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 
 const About = () => {
   const [collaps, setCollaps] = useState(false);
@@ -13,10 +15,36 @@ const About = () => {
     setToggle(false);
     setCollaps(!collaps);
   };
+
+  const { ref, inView } = useInView({
+    threshold: 0.2,
+  });
+  const animation = useAnimation();
+
+  useEffect(() => {
+    if (inView) {
+      animation.start({
+        opacity: 1,
+        y: 0,
+        transition: {
+          type: "spring",
+          duration: 1.5,
+          delay: 0.5,
+          bounce: 0.3,
+        },
+      });
+    }
+    if (!inView) {
+      animation.start({ y: 50, opacity: 0 });
+    }
+
+    console.log("use effect hook, inView = ", inView);
+  }, [inView]);
+
   return (
     <div>
       <section className=" dark:bg-gray-800 bg-gray-900">
-        <div className="container px-12 md:px-24 py-12 mx-auto">
+        <div ref={ref} className="container px-12 md:px-24 py-12 mx-auto">
           <h1 className="text-center text-3xl font-bold tracking-wide text-gray-100">
             About Us
           </h1>
@@ -24,7 +52,7 @@ const About = () => {
             style={{ display: "block", margin: "10px auto" }}
             className="w-32 pb-5"
           />
-          <div className="items-center lg:flex">
+          <motion.div animate={animation} className="items-center lg:flex">
             <div className="lg:w-1/2">
               <h2 className=" text-gray-100 text-4xl font-bold leading-normal">
                 We help you build, manage and grow your business.
@@ -167,7 +195,7 @@ const About = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
     </div>

@@ -1,5 +1,6 @@
 import React from "react";
 import Nav from "./Nav";
+import { motion } from "framer-motion";
 
 const Hero = () => {
   return (
@@ -16,7 +17,12 @@ const Hero = () => {
         </div>
 
         <div className="container flex flex-col-reverse lg:flex-row items-center justify-center gap-12 px-6 md:px-10">
-          <div className="container relative flex flex-1 flex-col font-hairline px-6 md:px-10 pb-1 pr-12 text-2xl font-hairline text-white">
+          <motion.div
+            initial={{ opacity: 0, x: -80, y: 20 }}
+            animate={{ opacity: 1, x: 0, y: 0 }}
+            transition={{ duration: 1.2 }}
+            className="container relative flex flex-1 flex-col font-hairline px-6 md:px-10 pb-1 pr-12 text-2xl font-hairline text-white"
+          >
             <h2 className="relative z-20 text-5xl font-extrabold leading-tight text-white">
               Bridging the Gap Between
               <br /> Business and Technology
@@ -40,15 +46,20 @@ const Hero = () => {
                 How It Works
               </a>
             </div>
-          </div>
-          <div className="relative w-full lg:w-2/5 ml-10 mt-4 overflow-hidden rounded-lg shadow-2xl cursor-pointer group">
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: 80, y: 20 }}
+            animate={{ opacity: 1, x: 0, y: 0 }}
+            transition={{ duration: 1.2 }}
+            className="relative w-full lg:w-2/5 ml-10 mt-4 overflow-hidden rounded-lg shadow-2xl cursor-pointer group"
+          >
             <div className="absolute flex items-center justify-center flex-1 mb-10 lg-mb-0 z-10 w-full h-full bg-black bg-opacity-25"></div>
             <img
               src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3290&q=80"
               alt=""
               className="object-cover w-5/6 sm:w-3/4 sm:h-3/4 md:w-full md:h-full"
             />
-          </div>
+          </motion.div>
         </div>
       </div>
 
